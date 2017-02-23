@@ -18,7 +18,16 @@ private recipes:Recipe[]=[
   getRecipe(id:number){
     return this.recipes[id];
   }
-deleteRecipe(recipe:Recipe){
-  this.recipes.splice(this.recipes.indexOf(recipe),1);
-}
+  deleteRecipe(recipe:Recipe){
+    this.recipes.splice(this.recipes.indexOf(recipe),1);
+  }
+  updateRecipe(id:number,recipe:Recipe){
+    this.recipes[id].name=recipe.name;
+    this.recipes[id].description=recipe.description;
+    this.recipes[id].imagePath=recipe.imagePath;
+    this.recipes[id].ingredients=recipe.ingredients;
+  }
+  addRecipe(recipe:Recipe){
+    this.recipes.push(recipe);
+  }
 }
