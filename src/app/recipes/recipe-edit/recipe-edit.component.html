@@ -1,40 +1,102 @@
-<h2>Add Recipe</h2>
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <div formGroupName="recipe">
-    <div class="form-group">
-      <label for="name">Recipe Name</label>
-      <input type="text" class="form-control" id="name" formControlName="name">
-      <div class="errMsg" *ngIf="!myForm.controls['recipe'].controls['name'].valid">
-        Enter recipe name!!!
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">Save</button>
+          <a class="btn btn-danger" (click)="onCancel()">Cancel</a>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input type="text" class="form-control" id="description" formControlName="description">
-      <div class="errMsg" *ngIf="!myForm.controls['recipe'].controls['description'].valid">
-        Enter description!!!
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Title</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name">
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="imagePath">Image Path</label>
-      <input type="text" class="form-control" id="imagePath" formControlName="imagePath">
-      <div class="errMsg" *ngIf="!myForm.controls['recipe'].controls['imagePath'].valid">
-        Enter image path!!!
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="image-url">Image Url</label>
+            <input
+              type="text"
+              id="image-url"
+              class="form-control"
+              formControlName="imagePath"
+              #imageUrl>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="img">
+            <img [src]="imageUrl.value">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="content">Content</label>
+            <textarea
+              type="text"
+              id="content"
+              rows="6"
+              class="form-control"
+              formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <ul class="list-group" formArrayName="ingredients">
+            <div
+              class="row"
+              *ngFor="let ingredient of myForm.controls['ingredients'].controls;let i=index">
+              <div formGroupName="{{i}}">
+                <div class="col-sm-5">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="name">
+                </div>
+                <div class="col-sm-5">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="amount">
+                </div>
+                <div class="col-sm-2">
+                  <button class="btn btn-danger" (click)="onRemoveItem(i)">X</button>
+                </div>
+              </div>
+
+              <br><br>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="form-group row">
+      <div class="col-md-5"><input type="text" class="form-control" #itemName></div>
+      <div class="col-md-5"><input type="text" class="form-control" #itemAmount></div>
+      <div class="col-md-2">
+        <button
+          type="button"
+          class="btn btn-primary" (click)="onAddItem(itemName.value,itemAmount.value)">+</button>
       </div>
     </div>
   </div>
-  <div formArrayName="ingredients">
-    <h3>Ingredients</h3>
-    <div class="form-group" *ngFor="let ingredient of myForm.controls.ingredients.controls;let i=index" [formGroupName]="i">
-      <div class="plLabelDiv"><label for="name" >Ingredient Name</label></div>
-      <div class="plLabelDiv"><label for="amount">Amount</label></div>
-      <br>
-      <input type="text" class="form-control1" formControlName="name"><input type="text" class="form-control1" formControlName="amount">
-      
-      <div class="plLabelDiv" *ngIf="!myForm.controls['ingredients'].controls[i].controls.name.valid"><label for="name" class="errMsg">Ingredient Name</label></div>
-      <div class="plLabelDiv" *ngIf="!myForm.controls['ingredients'].controls[i].controls.amount.valid"><label for="amount" class="errMsg">Amount</label></div>
-    </div>
-  </div>
-  <button type="button" class="btn btn-default" (click)="onAddIngredient()">Add Inredient</button>
-  <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
-</form>
+</div>
+
+

@@ -21,11 +21,8 @@ private recipes:Recipe[]=[
   deleteRecipe(recipe:Recipe){
     this.recipes.splice(this.recipes.indexOf(recipe),1);
   }
-  updateRecipe(id:number,recipe:Recipe){
-    this.recipes[id].name=recipe.name;
-    this.recipes[id].description=recipe.description;
-    this.recipes[id].imagePath=recipe.imagePath;
-    this.recipes[id].ingredients=recipe.ingredients;
+  editRecipe(oldRecipe:Recipe,newRecipe:Recipe){
+    this.recipes[this.recipes.indexOf(oldRecipe)]=newRecipe;
   }
   addRecipe(recipe:Recipe){
     this.recipes.push(recipe);
